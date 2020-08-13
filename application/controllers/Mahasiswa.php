@@ -37,8 +37,17 @@ class Mahasiswa extends CI_Controller
         } else {
             $this->Mahasiswa_model->insertDataMahasiswa();
             $nama = $this->input->post('nama', true);
-            $this->session->set_flashdata('insertberhasil', $nama);
+            $this->session->set_flashdata('flash', $nama);
+            $this->session->set_flashdata('tipe', 'ditambah');
             redirect('mahasiswa');
         }
+    }
+
+    public function hapusMhs($id, $nama)
+    {
+        $this->Mahasiswa_model->hapusDataMhs($id);
+        $this->session->set_flashdata('flash', $nama);
+        $this->session->set_flashdata('tipe', 'dihapus');
+        redirect('mahasiswa');
     }
 }
