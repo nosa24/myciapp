@@ -36,6 +36,8 @@ class Mahasiswa extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $this->Mahasiswa_model->insertDataMahasiswa();
+            $nama = $this->input->post('nama', true);
+            $this->session->set_flashdata('insertberhasil', $nama);
             redirect('mahasiswa');
         }
     }
