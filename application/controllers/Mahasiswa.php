@@ -50,4 +50,13 @@ class Mahasiswa extends CI_Controller
         $this->session->set_flashdata('tipe', 'dihapus');
         redirect('mahasiswa');
     }
+
+    public function detailMhs($id)
+    {
+        $data['judul'] = "Form Tambah Mahasiswa";
+        $data['mahasiswa'] = $this->Mahasiswa_model->getMhsbyId($id);
+        $this->load->view('templates/header', $data);
+        $this->load->view('mahasiswa/detail');
+        $this->load->view('templates/footer');
+    }
 }
