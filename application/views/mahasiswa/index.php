@@ -1,6 +1,11 @@
 <div class="container">
 	<div class="row mt-3">
 		<div class="col-md-6">
+			<a href="<?= base_url(); ?>mahasiswa/halamanTambah" class="btn btn-primary"> Tambah Mahasiswa</a>
+		</div>
+	</div>
+	<div class="row mt-3">
+		<div class="col-md-6">
 			<h3>Daftar mahasiswa</h3>
 			<ul class="list-group">
 				<?php foreach ($mahasiswa as $mhs) : ?>
