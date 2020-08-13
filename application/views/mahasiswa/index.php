@@ -18,7 +18,24 @@
 	</div>
 	<div class="row mt-3">
 		<div class="col-md-6">
+			<form action="" method="POST">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Cari data mahasiswa .." aria-describedby="button-addon2" name="keyword">
+					<div class="input-group-append">
+						<button class="btn btn-primary" type="submit" id="button-addon2">Cari</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row mt-3">
+		<div class="col-md-6">
 			<h3>Daftar mahasiswa</h3>
+			<?php if (empty($mahasiswa)) : ?>
+				<div class="alert alert-danger" role="alert">
+					Data mahasiswa tidak ditemukan.
+				</div>
+			<?php endif; ?>
 			<ul class="list-group">
 				<?php foreach ($mahasiswa as $mhs) : ?>
 					<li class="list-group-item">

@@ -17,6 +17,9 @@ class Mahasiswa extends CI_Controller
     public function index()
     {
         $data['mahasiswa'] = $this->Mahasiswa_model->getAllMahasiswa();
+        if ($this->input->post('keyword')) {
+            $data['mahasiswa'] = $this->Mahasiswa_model->cariDataMhs();
+        }
         $data['judul'] = "Halaman Mahasiswa";
         $this->load->view('templates/header', $data);
         $this->load->view('mahasiswa/index', $data);
