@@ -3,7 +3,7 @@
 		<div class="row mt-3">
 			<div class="col-md-6">
 				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					Data mahasiswa <?= $this->session->flashdata('insertberhasil'); ?> <strong>berhasil</strong> <?= $this->session->flashdata('tipe'); ?>.
+					Data mahasiswa '<?= $this->session->flashdata('flash'); ?>' <strong>berhasil</strong> <?= $this->session->flashdata('tipe'); ?>.
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -25,6 +25,8 @@
 						<?= $mhs['nama']; ?>
 
 						<a href="<?= base_url(); ?>mahasiswa/hapusMhs/<?= $mhs['id']; ?>/<?= $mhs['nama']; ?>" class="badge badge-danger float-right" onclick="return confirm('yakin?')">hapus</a>
+
+						<a href="<?= base_url(); ?>mahasiswa/halamanUbah/<?= $mhs['id']; ?>" class="badge badge-success float-right">ubah</a>
 
 						<a href="<?= base_url(); ?>mahasiswa/detailMhs/<?= $mhs['id']; ?>" class="badge badge-primary float-right">detail</a>
 					</li>

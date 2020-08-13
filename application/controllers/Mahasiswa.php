@@ -25,7 +25,7 @@ class Mahasiswa extends CI_Controller
 
     public function halamanTambah()
     {
-        $data['judul'] = "Form Tambah Mahasiswa";
+        $data['judul'] = "Form Tambah Data Mahasiswa";
         $this->form_validation->set_rules('nama', 'Nama', 'required');
         $this->form_validation->set_rules('nrp', 'NRP', 'required|numeric');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
@@ -58,5 +58,26 @@ class Mahasiswa extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('mahasiswa/detail');
         $this->load->view('templates/footer');
+    }
+
+    public function halamanUbah($id)
+    {
+        $data['judul'] = "Form Ubah Data Mahasiswa";
+        $data['mahasiswa'] = $this->Mahasiswa_model->getMhsbyId($id);
+        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('nrp', 'NRP', 'required|numeric');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('mahasiswa/ubah', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->Mahasiswa_model->updateDataMahasiswa($id);
+            $nama = $this->input->post('nama', true);
+            $this->session->set_flashdata('flash', $nama);
+            $this->session->set_flashdata('tipe', 'diubah');
+            redirect('mahasiswa');
+        }
     }
 }
