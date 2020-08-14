@@ -1,6 +1,7 @@
 <div class="container">
+	<div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash'); ?>" data-tipe="<?= $this->session->flashdata('tipe'); ?>"></div>
 	<?php if ($this->session->flashdata('flash')) : ?>
-		<div class="row mt-3">
+		<!-- <div class="row mt-3">
 			<div class="col-md-6">
 				<div class="alert alert-success alert-dismissible fade show" role="alert">
 					Data mahasiswa '<?= $this->session->flashdata('flash'); ?>' <strong>berhasil</strong> <?= $this->session->flashdata('tipe'); ?>.
@@ -9,7 +10,8 @@
 					</button>
 				</div>
 			</div>
-		</div>
+		</div> -->
+
 	<?php endif; ?>
 	<div class="row mt-3">
 		<div class="col-md-6">
@@ -41,7 +43,7 @@
 					<li class="list-group-item">
 						<?= $mhs['nama']; ?>
 
-						<a href="<?= base_url(); ?>mahasiswa/hapusMhs/<?= $mhs['id']; ?>/<?= $mhs['nama']; ?>" class="badge badge-danger float-right" onclick="return confirm('yakin?')">hapus</a>
+						<a href="<?= base_url(); ?>mahasiswa/hapusMhs/<?= $mhs['id']; ?>/<?= $mhs['nama']; ?>" class="badge badge-danger float-right tombol-hapus" data-nama="<?= $mhs['nama']; ?>">hapus</a>
 
 						<a href="<?= base_url(); ?>mahasiswa/halamanUbah/<?= $mhs['id']; ?>" class="badge badge-success float-right">ubah</a>
 
