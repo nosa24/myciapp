@@ -14,8 +14,13 @@ class Peoples_model extends CI_Model
         //return $this->db->get('mahasiswa')->result_array();
     }
 
-    public function getPeoples($limit, $start)
+    public function getPeoples($limit, $start, $keyword = null)
     {
+        if ($keyword) {
+            $this->db->like('name', $keyword);
+            $this->db->or_like('email', $keyword);
+            $this->db->or_like('address', $keyword);
+        }
         return $this->db->get('peoples', $limit, $start)->result_array();
     }
     public function getCountPeoples()

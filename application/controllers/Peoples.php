@@ -3,6 +3,14 @@ class Peoples extends CI_Controller
 {
     public function index()
     {
+        //ambil data keyword
+        if ($this->input->post('search')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword', $data['keyword']);
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');
+        }
+
         //load models
         $this->load->model('Peoples_model');
 
@@ -10,46 +18,21 @@ class Peoples extends CI_Controller
         $this->load->library('pagination');
 
         //pagination config, Note : ingat tambah index di akhirannya.
-        $config['base_url'] = "http://localhost/myciapp/peoples/index";
-        $config['total_rows'] = $this->Peoples_model->getCountPeoples();
+        //$config['total_rows'] = $this->Peoples_model->getCountPeoples();
+        //menghitung jumlah baris di query terakhir
+        $this->db->like('name', $data['keyword']);
+        $this->db->or_like('email', $data['keyword']);
+        $this->db->or_like('address', $data['keyword']);
+        $this->db->from('peoples');
+        $config['total_rows'] = $this->db->count_all_results();
+        $data['total_rows'] = $config['total_rows'];
         $config['per_page'] = 12;
-
-        //sttling pagination
-        $config['full_tag_open'] = '<nav><ul class="pagination justify-content-center">';
-        $config['full_tag_close'] = '</ul></nav>';
-
-        $config['first_link'] = "First";
-        $config['first_tag_open'] = '<li class="page-item">';
-        $config['first_tag_close'] = '</li>';
-
-        $config['last_link'] = "Last";
-        $config['last_tag_open'] = '<li class="page-item">';
-        $config['last_tag_close'] = '</li>';
-
-        $config['next_link'] = '&raquo';
-        $config['next_tag_open'] = '<li class="page-item">';
-        $config['next_tag_close'] = '</li>';
-
-        $config['prev_link'] = '&laquo';
-        $config['prev_tag_open'] = '<li class="page-item">';
-        $config['prev_tag_close'] = '</li>';
-
-        $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
-        $config['cur_tag_close'] = '</a></li>';
-
-        $config['num_tag_open'] = '<li class="page-item">';
-        $config['num_tag_close'] = '</li>';
-
-        $config['attributes'] = array('class' => 'page-link');
-
-        $config['num_links'] = 4;
 
         //inisialisasi pagination
         $this->pagination->initialize($config);
 
-
         $data['start'] = $this->uri->segment(3);
-        $data['peoples'] = $this->Peoples_model->getPeoples($config['per_page'], $data['start']);
+        $data['peoples'] = $this->Peoples_model->getPeoples($config['per_page'], $data['start'], $data['keyword']);
         $data['judul'] = "List of Peoples";
         $this->load->view('templates/header', $data);
         $this->load->view('peoples/index', $data);
