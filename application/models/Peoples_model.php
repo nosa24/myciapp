@@ -3,15 +3,24 @@ class Peoples_model extends CI_Model
 {
 
     //function untuk mengambil seluruh data mahasiswa
-    public function getAllMahasiswa()
+    public function getAllPeoples()
     {
         //menggunakan query builder select *   
-        $query = $this->db->get('mahasiswa');
+        $query = $this->db->get('peoples');
         //tampilkan hasil berupa array
         return $query->result_array();
 
         //atau tulis dalam 1 baris
         //return $this->db->get('mahasiswa')->result_array();
+    }
+
+    public function getPeoples($limit, $start)
+    {
+        return $this->db->get('peoples', $limit, $start)->result_array();
+    }
+    public function getCountPeoples()
+    {
+        return $this->db->get('peoples')->num_rows();
     }
 
     public function insertDataMahasiswa()
